@@ -32,7 +32,7 @@ Route::get('/download-image', function () {
 Route::get('/delet-images', function () {
 
     // Get All Directories Within A Directory
-    $directories = Storage::disk('public')->allDirectories();
+    $directories = Storage::disk('public')->allDirectories('uploads');
     foreach ($directories as $directory) {
         // Get All Files Within A Directory
         $files = Storage::disk('public')->files($directory);
