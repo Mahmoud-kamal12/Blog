@@ -18,13 +18,13 @@ class UserController extends Controller
     }
 
     public function index(){
-        return view('dashboard.users.index')->with('users' , User::orderBy('updated_at','DESC')->paginate(10));
+        return view('dashboard.users.index')->with('users' , User::orderBy('updated_at','DESC')->paginate(10)->onEachSide(0));
     }
 
     public function makeAdmin(User $user){
         $user->role = 'admin';
         $user->save();
-        return view('dashboard.users.index')->with('users' , User::orderBy('updated_at','DESC')->paginate(10));
+        return view('dashboard.users.index')->with('users' , User::orderBy('updated_at','DESC')->paginate(10)->onEachSide(0));
     }
 
     public function profile(){
@@ -43,7 +43,7 @@ class UserController extends Controller
         $userdata = $request->only(['name']);
         $userdata['email'] = $validated['email'];
         if ($request->hasFile('image')) {
-            $profiledata['image'] = Storage::disk('public')->putFile('images/profile', $request->file('image'));
+            $profiledata['image'] = "uploads/".Storage::disk('public')->putFile('images/profile', $request->file('image'));
             Storage::disk('public')->delete($profile->image);
         }
         $profile->update($profiledata);

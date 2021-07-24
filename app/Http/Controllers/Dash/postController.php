@@ -29,9 +29,9 @@ class postController extends Controller
     public function index()
     {
         if (auth()->user()->IsAdmin()) {
-            return view('dashboard.posts.index')->with('posts' , Post::orderBy('updated_at','DESC')->paginate(10));
+            return view('dashboard.posts.index')->with('posts' , Post::orderBy('updated_at','DESC')->paginate(10)->onEachSide(0));
         }else{
-            return view('dashboard.posts.index')->with('posts' , Post::where('user_id', '=', auth()->user()->id)->orderBy('updated_at','DESC')->paginate(15));
+            return view('dashboard.posts.index')->with('posts' , Post::where('user_id', '=', auth()->user()->id)->orderBy('updated_at','DESC')->paginate(15)->onEachSide(0));
         }
 
     }
@@ -78,8 +78,8 @@ class postController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'content' =>$request->content,
-            'image' => Storage::disk('public')->putFile('images/posts', $request->file('image')),
-            'category_id' => $request->categoryID,
+            'image' => "uploads/".Storage::disk('public')->putFile('images/posts', $request->file('image')),
+            'category_id' => $request->category_id,
             'user_id' => auth()->user()->id
         ]);
         if ($request->tags) {
@@ -133,7 +133,7 @@ class postController extends Controller
         $post = Post::withTrashed()->find($id);
 
         if ($request->hasFile('image')) {
-            $data['image'] = Storage::disk('public')->putFile('images/posts', $request->file('image'));
+            $data['image'] = "uploads/".Storage::disk('public')->putFile('images/posts', $request->file('image'));
             Storage::disk('public')->delete($post->image);
         }
 

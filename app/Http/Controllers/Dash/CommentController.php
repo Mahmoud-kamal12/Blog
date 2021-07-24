@@ -18,11 +18,11 @@ class CommentController extends Controller
     public function index()
     {
         if (auth()->user()->IsAdmin()) {
-            $comments = Comment::orderBy('updated_at','DESC')->paginate(10);
+            $comments = Comment::orderBy('updated_at','DESC')->paginate(10)->onEachSide(0);
             return view('dashboard.comments.index')->with('comments',$comments);
         }
 
-        $comments = Comment::where('user_id' , auth()->user()->id)->orderBy('updated_at','DESC')->paginate(10);
+        $comments = Comment::where('user_id' , auth()->user()->id)->orderBy('updated_at','DESC')->paginate(10)->onEachSide(0);
         return view('dashboard.comments.index')->with('comments',$comments);
     }
 

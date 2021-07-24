@@ -15,6 +15,6 @@ $factory->define(Post::class, function (Faker $faker) {
         'content'=> $faker->realText(10000),
         'category_id' => Category::all()->random()->id,
         'user_id' => User::all()->random()->id,
-        'image' => Storage::disk('public')->putFile('images/posts', $faker->image() ,'public')
+        'image' => "uploads/". Storage::disk('public')->putFile('images/posts', $faker->image() ,'public')
     ];
 });

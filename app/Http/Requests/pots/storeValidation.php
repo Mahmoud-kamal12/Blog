@@ -28,7 +28,7 @@ class storeValidation extends FormRequest
             'description' => 'required',
             'content' => 'required',
             'image' => 'required|image',
-            'categoryID' => 'required|exists:categories,id',
+            'category_id' => 'required|exists:categories,id',
             // 'tagID' => 'required|exists:tags,id'
         ];
     }

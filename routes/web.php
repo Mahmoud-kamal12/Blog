@@ -32,7 +32,7 @@ Route::get('/download-image', function () {
 Route::get('/delet-images', function () {
 
     // Get All Directories Within A Directory
-    $directories = Storage::disk('public')->allDirectories('uploads');
+    $directories = Storage::disk('public')->allDirectories();
     foreach ($directories as $directory) {
         // Get All Files Within A Directory
         $files = Storage::disk('public')->files($directory);
@@ -47,8 +47,8 @@ Route::get('/delet-images', function () {
     }
 
     dd("images and folders Deeted successfuly");
-
-})->middleware(['auth' ,'vertifyisadmin']);
+});
+// })->middleware(['auth' ,'vertifyisadmin']);
 
 
 Route::get('/findOrFail/{id}', function ($id) {

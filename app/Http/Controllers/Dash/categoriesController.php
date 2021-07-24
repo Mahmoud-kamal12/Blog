@@ -30,7 +30,7 @@ class categoriesController extends Controller
      */
     public function index()
     {
-        return view('dashboard.categories.index')->with('categories',Category::paginate(10));
+        return view('dashboard.categories.index')->with('categories',Category::paginate(10)->onEachSide(0));
     }
 
     /**

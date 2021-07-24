@@ -34,7 +34,7 @@
                 </table>
             </div>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                         {{$comments->links()}}
                     </nav>

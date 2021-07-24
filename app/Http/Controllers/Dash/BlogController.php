@@ -18,24 +18,24 @@ class BlogController extends Controller
     }
 
     public function index(){
-        return view('blog.welcome')->with('posts' , Post::orderBy('updated_at','DESC')->paginate(15)->fragment('posts'));
+        return view('blog.welcome')->with('posts' , Post::orderBy('updated_at','DESC')->paginate(15)->fragment('posts')->onEachSide(0));
     }
 
     public function show(Post $post){
-        $comments = $post->comments()->orderBy('updated_at','DESC')->paginate(5);
+        $comments = $post->comments()->orderBy('updated_at','DESC')->paginate(5)->onEachSide(0);
         return view('blog.post')->with('post' , $post)->with('comments' , $comments);
     }
 
     public function showProfile(){
 
-        $posts = Post::where('user_id' , auth()->user()->id)->orderBy('updated_at','DESC')->paginate(5)->fragment('posts');
+        $posts = Post::where('user_id' , auth()->user()->id)->orderBy('updated_at','DESC')->paginate(5)->fragment('posts')->onEachSide(0);
 
         return view('blog.profile')->with('user',auth()->user())->with('posts' , $posts);
     }
 
     public function publisherprofile($id){
 
-        $posts = Post::where('user_id' , $id)->orderBy('updated_at','DESC')->paginate(5)->fragment('posts');
+        $posts = Post::where('user_id' , $id)->orderBy('updated_at','DESC')->paginate(5)->fragment('posts')->onEachSide(0);
 
         $user = User::findOrFail($id);
 

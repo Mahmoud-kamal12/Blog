@@ -23,7 +23,7 @@ class tagController extends Controller
      */
     public function index()
     {
-        return view('dashboard.tags.index')->with('tags',Tag::orderBy('updated_at','DESC')->paginate(10));
+        return view('dashboard.tags.index')->with('tags',Tag::orderBy('updated_at','DESC')->paginate(10)->onEachSide(0));
     }
 
     /**
